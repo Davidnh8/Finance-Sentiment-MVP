@@ -1,43 +1,381 @@
 import streamlit as st
 import os
 
-# ------------- PAGE CONFIG & BASIC STYLING -------------
+# --------------------- PAGE CONFIG & STYLING ---------------------
 st.set_page_config(page_title="AI War Room - Finance Sentiment", layout="wide")
 
-# Optional: Hide the Streamlit menu & footer for a cleaner look
-st.markdown("""
+# Hide Streamlit's default menu and footer
+st.markdown(
+    """
     <style>
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
-    .block-container {padding-top: 1rem; padding-bottom: 0rem;}
-    </style>
-""", unsafe_allow_html=True)
 
-# ------------- TITLE & INTRO SECTION -------------
+    /* Make the main container use less padding at top/bottom */
+    .block-container {
+        padding-top: 1rem;
+        padding-bottom: 0rem;
+    }
+
+    /* Slightly increase font size for agent headings */
+    .agent-heading {
+        font-size: 1.25rem; /* Adjust as desired */
+        font-weight: 600;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
+# --------------------- RAW TWITTER DATA ---------------------
+raw_twitter_data = """
+What's Next? - $NVDA Stock Price Prediction - NVDA Stock Analysis | NVIDIA Stock  
+https://youtube.com/watch?v=EWt6B0ONj98  
+Chekku  
+@ImChekku  
+·  
+2m  
+These are BlackRock's Top 9 largest Stock Investments.  
+
+1. 🇺🇸 Apple: $255B  
+2. 🇺🇸 Microsoft: $242B  
+3. 🇺🇸 Nvidia: $224B  
+4. 🇺🇸 Amazon: $124B  
+5. 🇺🇸 Meta Platforms: $93B  
+6. 🇺🇸 Alphabet Class A: $71B  
+7. 🇺🇸 Broadcom: $61B   
+8. 🇺🇸 Alphabet Class C: $60B  
+9. 🇺🇸 Eli Lilly: $57B  
+Show more  
+📊 Stock Master  
+@codemaster70  
+·  
+4m  
+The Stock Market Weathered Nvidia’s Plunge. It Couldn’t Withstand Renewed Tariff Threats. - Barron's $NVDA  
+
+#️⃣ #usd #stocks #investing  
+From betonmarket.it  
+
+My nvidia stock. 😭😭😭  
+pope🌐  
+@Pope_Eseka  
+·  
+7m  
+Will $TSLA $GM $F $CVX $XO. $NVIDIA $AAPL $BTC stock go down next week ?  
+
+Canada and Mexico hit back after Trump signs order for punishing tariffs  
+
+Read more on http://vapadefinancial.com  
+Jubean 🇸🇬🇺🇸  
+@bp_raju  
+·  
+9m  
+Replying to   
+@chamath  
+And Nvidia stock rose on the back of those sales. So are you saying Nvidia needs to give up that market?  
+Just wait for investigation to be over and actually see if any laws were broken. Nvidia already made a public statement that it does not see any illegal activity.  
+
+EMcDonald  
+@e2341m_e  
+·  
+13m  
+Nvidia CEO Huang Heads to White House After Wild Week for Chipmaker's Stock  https://investopedia.com/nvidia-ceo-huang-heads-to-white-house-after-wild-week-for-chipmaker-stock-8783857?utm_source=social2&utm_medium=social&utm_campaign=shareurlbuttons via   
+@investopedia  
+investopedia.com  
+Nvidia CEO Huang Heads to White House After Wild Week for Chipmaker's Stock  
+Nvidia CEO Jensen Huang is set to meet with President Donald Trump at the White House Friday, after a wild week for the chipmaker's stock.  
+
+tae kim  
+@firstadopter  
+·  
+23m  
+My CNBC appearance has already garnered 120,000 views across social media and was featured on Nvidia's Apple News stock page.​​​​​​​​​​​​​​​  
+
+Viewers may appreciate serious, deeply researched, factual insight versus superficial opinions of less substance.​​​​​​​​​​​​​​​ Crazy  
+
+Quote  
+tae kim  
+@firstadopter  
+·  
+Jan 31  
+Nvidia's future in focus after DeepSeek earthquake. What it all means. Thank you @CNBC @KellyCNBC @dee_bosa for having me on  
+
+What Does Chinese AI Start-Up DeepSeek Mean for Nvidia Stock? https://msn.com/en-us/money/companies/what-does-chinese-ai-start-up-deepseek-mean-for-nvidia-stock/ar-AA1ye4Cg?cvid=931c0c2d5bcc4c56bfc6af27610c4048&ocid=sappioshp  
+
+Emel Alyanak  
+@AlyanakEme73701  
+·  
+41m  
+Nvidia stock plunges, Bitcoin dips, and Trump Media surges: Markets news roundup  
+blondellonline.com  
+Nvidia stock plunges, Bitcoin dips, and Trump Media surges: Markets news roundup - In-Depth...  
+Federal Reserve Chair Jerome Powell.Photo: Al Drago/Bloomberg (Getty Images)  
+
+JC  
+@Statefan1219  
+·  
+43m  
+Replying to  
+@sundarpichai  
+@nvidia  
+and  
+@googlecloud  
+This is awesome - great way to tank  
+@Nvida  
+stock.  
+@Banana3Stocks  
+@jimcramer  
+I think they all went to deepseek and this a lie.  
+
+Sathyarajan B  
+@INovaBeing  
+·  
+1h  
+DeepSeek AI just caused shockwaves in the stock market—some companies soared while others crumbled. Who came out on top?  
+
+With Nvidia and Meta caught in the upheaval, AI’s market influence is undeniable. Investors are watching closely—where’s the smart money going next?  
+
+Are you  
+Show more  
+
+Harry Grant  
+@harryrgrant  
+·  
+1h  
+Why this 50-year old restaurant chain has a stock that's smoking Nvidia's  
+From share.gainfully.com  
+
+DewmBoom  
+@dewmboom  
+·  
+1h  
+Can Meta’s Massive Manhattan-Sized Data Center Take Nvidia Stock T  
+
+New Record Highs? $NVDA  
+From barchart.com  
+
+Trevor McLeod  
+@tabmcleod  
+·  
+1h  
+Is this what sparked the selloff of #nvidia stock earlier this week?  
+
+#artificial_intelligence #ai #GPU  
+#stocks  
+From marketwatch.com  
+
+Drmikemyers  
+@drmikemyers  
+·  
+1h  
+Can Meta's Massive Manhattan-Sized Data Center Take Nvidia Stock to New Record Highs?  
+theglobeandmail.com  
+Can Meta’s Massive Manhattan-Sized Data Center Take Nvidia Stock to New Record Highs?  
+Detailed price information for Amazon.com Inc (AMZN-Q) from The Globe and Mail including charting and trades.  
+
+Pure Tech News 🚀📱 🖥️ 🎮  
+@Pur3Tech  
+·  
+1h  
+One Blogger Helped Spark NVIDIA's $600B Stock Collapse #Technology  
+From puretech.news  
+
+FIRED Up Wealth  
+@FIREDUpWealth  
+·  
+1h  
+Replying to  
+@GermanDaphne  
+and  
+@StockMKTNewz  
+This breaks it down  
+
+Did DeepSeek AI Just Dethrone Nvidia $NVDA Stock?  
+
+They're developing their own GPUs China is close to chip production as good as Nvidia, so they will bypass them  
+That might have an effect like oh maybe collapsing a stock.  
+Smh  
+
+Chris O.  
+@crowd_of_one  
+·  
+2h  
+Replying to  
+@crowd_of_one  
+@bnk2nde  
+and  
+@Abiodun0x  
+Found an article that explains the deepseek innovation with better clarity.  
+
+Towards the end is this explainer on the Nvidia stock price falls.  
+
+https://youtubetranscriptoptimizer.com/blog/05_the_short_case_for_nvda  
+
+Markets Today  
+@marketsday  
+·  
+2h  
+Biggest Companies by Market Cap (2024) 🚀  
+
+These stock market giants are leading the way with trillion-dollar valuations! 💰  
+
+💡Top 5 Companies:
+
+🍏 Apple ( $AAPL ) – $3.59T+  
+🖥  Microsoft ( $MSFT ) – $3.11T+  
+🎮 Nvidia ( $NVDA ) – $3.05T+  
+📦 Amazon ( $AMZN ) – $2.52T+  
+🔍 Alphabet  
+Show more  
+
+Loretta Renz  
+@LorettaRen76196  
+·  
+2h  
+Replying to  
+@VivekNewsX  
+Yes, her husband just did it again with Nvidia stock and made a boatload.  When will this be put to an end?  If the average person did this we would be put in jail immediately.  
+
+flow_float  
+@FLOwing_124  
+·  
+2h  
+DeepSeek AI-powered chatbot app has  quickly overtook OpenAI's ChatGPT as the most-downloaded free iOS app in the US, and caused chip-making company Nvidia to lose almost $600bn (£483bn) of its market value in one day – a new US stock market record.  
+From bbc.com  
+
+Sigma77 ⛳  
+@SigmaAquarius  
+·  
+2h  
+Replying to  
+@TrendSpider  
+$NVDA stock's like a plot twist in a movie - you think it's down for the count, then BAM! It's back with a vengeance, proving once again that in the AI world, Nvidia's the hero we didn't know we needed. Here's to betting on AI's favorite chip champ! $DELL  
+
+. Yep, was pretty happy to find mine at MRSP D1 back then.  
+But here clearly no stock, kind of a mess from Nvidia. Like 250 for every distributor in the US for the 5090, etc.  
+It's all the influencers that got the cards 😂  
+
+G. Ichtertz  
+@g_ichtertz  
+·  
+2h  
+The Stock Market Weathered Nvidia’s Plunge. It Couldn’t Withstand Renewed Tariff Threats.  
+From barrons.com  
+
+Jason Birch  
+@JasonBirch0916  
+·  
+2h  
+Nvidia Stock May Fall As DeepSeek’s ‘Amazing’ AI Model Disrupts OpenAI - Forbes  
+From apple.news  
+
+Proxenos  
+@Proxenos_zh  
+·  
+2h  
+Replying to  
+@malleshwarm1  
+and  
+@KyleTrainEmoji  
+America does cook the data: it's economic performance is largely fluff. A trillion was just shaved off the stock exchange earlier this week is a perfect example: NVIDIA and other tech valuations are bullshit.  
+
+Furqi  
+@Mr____Dreamer  
+·  
+2h  
+Nvidia stock is ruining my portfolio  
+Gone down 19% since i bought it  
+You never know what and when a crash happens  
+
+ToolMan  
+@jonathantoole91  
+·  
+2h  
+Replying to  
+@NVIDIAGeForce  
+#GeForceRTX50  
+I really don't even care about winning a 5090, I just want to be able to buy the damn thing  
+@nvidia  
+. Why tf would you only release 300 5090 founders edition GPUs the whole world is trying to buy. Go look at your stock, ya'll need to rethink some things...  
+
+FryAI  
+@TheFryAI  
+·  
+2h  
+➡️ A single blogger has played a significant role in triggering NVIDIA's $600 billion stock decline, leading to panic in Silicon Valley.  
+
+One Blogger Helped Spark NVIDIA's $600B Stock Collapse  
+hardware.slashdot.org  
+One Blogger Helped Spark NVIDIA's $600B Stock Collapse - Slashdot  
+On January 24th Brooklyn blogger Jeffrey Emanuel made the case for shorting NVIDIA, remembers MarketWatch, "due to a number of shifting tides in the AI world, including the emergence of a China-based...  
+
+Slashdot  
+@slashdot  
+·  
+2h  
+One Blogger Helped Spark NVIDIA's $600B Stock Collapse  
+hardware.slashdot.org  
+One Blogger Helped Spark NVIDIA's $600B Stock Collapse - Slashdot  
+On January 24th Brooklyn blogger Jeffrey Emanuel made the case for shorting NVIDIA, remembers MarketWatch, "due to a number of shifting tides in the AI world, including the emergence of a China-based...  
+
+sera 🚬🐈🏳️‍⚧️  
+@WRTHLESSANIMAL  
+·  
+2h  
+Replying to  
+@_TheGreatAce_  
+nah there’s not a lot of hardware allocated to this region, nvidia simply doesnt gaf about thsi place. im talking strictly 5080s tho ive no idea how stock dor 5090 was  
+
+Slashdot Media  
+@SlashdotMedia  
+·  
+2h  
+One Blogger Helped Spark NVIDIA's $600B Stock Collapse  
+hardware.slashdot.org  
+One Blogger Helped Spark NVIDIA's $600B Stock Collapse - Slashdot  
+
+On January 24th Brooklyn blogger Jeffrey Emanuel made the case for shorting NVIDIA, remembers MarketWatch, "due to a number of shifting tides in the AI world, including the emergence of a China-based...  
+
+柳青  
+@liuqing178  
+·  
+2h  
+The Short Case for Nvidia Stock
+"""
+
+
+# --------------------- TITLE & INTRO SECTION ---------------------
 st.title("AI War Room: Finance Sentiment Analysis")
 
 st.markdown("""
 Welcome to the **AI War Room** — where four advisor agents 
-(**Optimist**, **Pessimist**, **Neutral**, and **Degen**) analyze
-social media sentiment on a selected stock. 
-
-**Select a ticker below**, click **Analyze**, then **chat** with each 
-agent for their perspective, and finally, see the **consensus**.
+(**Optimist**, **Pessimist**, **Neutral**, and **Degen**) 
+analyze social media sentiment on a selected stock.
 """)
 
-# ------------- TICKER SELECTION & ANALYSIS -------------
-tickers = ["Tesla", "Nvidia"]
+# --------------------- TICKER SELECTION (SINGLE) ---------------------
+tickers = ["Nvidia"]
 selected_ticker = st.selectbox("Choose Ticker:", options=tickers, index=0)
-analyze_button = st.button("Analyze Sentiment")
 
-# Mock data for social sentiment based on selected ticker
-mock_data_map = {
-    "Tesla": "TSLA is on fire! Everyone says it's going to the moon.",
-    "Nvidia": "NVDA just reported record earnings, but some say it's overpriced."
-}
-mock_social_text = mock_data_map[selected_ticker]
+# --------------------- TWITTER DATA DISPLAY (SCROLLABLE BOX) ---------------------
+st.subheader("TWITTER (Last 2 hours)")
+st.markdown(
+    f"""
+    <div style="border:1px solid #ccc; background-color:#000000; padding:1rem; max-height:400px; overflow-y:auto;">
+      {raw_twitter_data.replace('\n', '<br>')}
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
-# ------------- MOCK SENTIMENT ANALYSIS LOGIC -------------
+# --------------------- PLACEHOLDER FOR OTHER PLATFORMS (WEBSITES) ---------------------
+st.subheader("News Articles")
+st.info("No data available for articles yet.")
+
+# --------------------- MOCK SENTIMENT ANALYSIS ---------------------
 def mock_sentiment_analysis(text):
     text_lower = text.lower()
     if "moon" in text_lower or "fire" in text_lower or "record" in text_lower:
@@ -47,89 +385,78 @@ def mock_sentiment_analysis(text):
     else:
         return {"sentiment": "Neutral", "score": 0.0}
 
-if "analysis_result" not in st.session_state:
-    st.session_state["analysis_result"] = None
+# For demonstration, we use a short snippet from the data:
+mock_text_for_analysis = "NVDA just reported record earnings, but some say it's overpriced."
+analysis_result = mock_sentiment_analysis(mock_text_for_analysis)
 
-if analyze_button:
-    st.session_state["analysis_result"] = mock_sentiment_analysis(mock_social_text)
+# --------------------- AGENT RESPONSES ---------------------
+agent_responses = {
+    "Optimist": (
+        "“Despite chatter about potential competition and headlines of a ‘$600B collapse,’ "
+        "Nvidia remains a cornerstone in AI. Temporary dips are opportunities—especially given dominance in GPUs. "
+        "Short-term volatility won’t overshadow the long-term growth story.”"
+    ),
+    "Pessimist": (
+        "“Nvidia’s stock soared on AI hype, but negative headlines—competition, tariffs, and high valuations—suggest serious headwinds. "
+        "Moreover, DeepSeek’s promise of operating with reduced computing power, combined with excessive volatility in the space, "
+        "could undermine Nvidia’s market share. It’s better to remain cautious until these uncertainties are resolved.”"
+    ),
+    "Neutral": (
+        "“While Nvidia has strong fundamentals and leads in the GPU market, rumors of new rivals and macro uncertainties are real. "
+        "A balanced approach is prudent: neither chase the hype nor panic-sell on rumors without thorough research.”"
+    ),
+    "Degen": (
+        "“I see immense opportunities in the volatility if you take calculated risks. Instead of making reckless bets, consider agile, tactical plays that adapt quickly to market signals and innovation trends—including developments like DeepSeek’s approach. "
+        "Focus on dynamic strategies that capitalize on rapid price swings and market inefficiencies.”"
+    ),
+}
 
-# ------------- AGENT LOGIC -------------
-def get_agent_response(agent, user_message, sentiment_result):
-    responses = {
-        "Optimist": f"Optimist sees {sentiment_result['sentiment']} sentiment. Cheer up! This could be a rocket ride!",
-        "Pessimist": f"Pessimist sees {sentiment_result['sentiment']} sentiment. Careful... storm clouds could be on the horizon.",
-        "Neutral": f"Neutral sees a balanced view. With sentiment {sentiment_result['sentiment']}, we should weigh both sides carefully.",
-        "Degen": f"Degen says YOLO! Who cares about {sentiment_result['sentiment']}? We're going ALL IN regardless!"
-    }
-    return responses.get(agent, "I have no comment.")
-
-# ------------- AGENT IMAGES SETUP -------------
-agent_names = ["Optimist", "Pessimist", "Neutral", "Degen"]
-image_directory = "images/"  # Make sure the images are in this directory
-
-agent_images = {agent: os.path.join(image_directory, f"{agent.lower()}.jpg") for agent in agent_names}
-
-# ------------- TOP AGENTS DISPLAY -------------
+# --------------------- AGENTS DISPLAY ---------------------
 st.markdown("---")
-st.subheader("Agents")
+st.subheader("Agents' Views on Nvidia")
 
-if "active_agent" not in st.session_state:
-    st.session_state.active_agent = None
+agent_names = ["Optimist", "Pessimist", "Neutral", "Degen"]
+image_directory = "images/"
 
-for agent in agent_names:
-    if f"{agent}_chat" not in st.session_state:
-        st.session_state[f"{agent}_chat"] = []
+# Attempt to load agent images from local folder
+agent_images = {
+    agent: os.path.join(image_directory, f"{agent.lower()}.jpg")
+    for agent in agent_names
+}
+agent_emojis = {
+    "Optimist": "☀️",
+    "Pessimist": "🌧️",
+    "Neutral": "⚖️",
+    "Degen": "🎲"
+}
 
 cols = st.columns(4)
 for i, agent in enumerate(agent_names):
     with cols[i]:
         if os.path.exists(agent_images[agent]):
-            st.image(agent_images[agent], width=100)
+            # Slightly bigger image
+            st.image(agent_images[agent], width=240)
         else:
             st.write(f"⚠️ Missing {agent} image")
-        
-        if st.button(agent, key=f"select_{agent}"):
-            st.session_state.active_agent = agent
 
-# ------------- CHAT WITH ACTIVE AGENT -------------
-if st.session_state.active_agent:
-    st.markdown(f"### Chat with {st.session_state.active_agent}")
+        st.markdown(f"<div class='agent-heading'>{agent} {agent_emojis[agent]}</div>", unsafe_allow_html=True)
+        st.write(agent_responses[agent])
 
-    for msg in st.session_state[f"{st.session_state.active_agent}_chat"]:
-        st.write(msg)
-
-    user_input = st.text_input(f"Your question or comment to {st.session_state.active_agent}:")
-
-    if st.button("Send", key="send_message"):
-        if user_input.strip():
-            st.session_state[f"{st.session_state.active_agent}_chat"].append(f"**You**: {user_input}")
-
-            if st.session_state["analysis_result"]:
-                agent_sentiment = st.session_state["analysis_result"]
-            else:
-                agent_sentiment = {"sentiment": "Unknown", "score": 0}
-
-            bot_reply = get_agent_response(st.session_state.active_agent, user_input, agent_sentiment)
-            st.session_state[f"{st.session_state.active_agent}_chat"].append(f"**{st.session_state.active_agent}**: {bot_reply}")
-
-# ------------- CONSENSUS SECTION -------------
+# --------------------- FINAL CONSENSUS ---------------------
 st.markdown("---")
 st.subheader("Final Consensus")
 
-if st.session_state.get("analysis_result"):
-    sentiment_label = st.session_state["analysis_result"]["sentiment"]
-    sentiment_score = st.session_state["analysis_result"]["score"]
+sentiment_label = analysis_result["sentiment"]
+sentiment_score = analysis_result["score"]
 
-    if sentiment_score > 0.3:
-        consensus = "Bullish"
-    elif sentiment_score < -0.3:
-        consensus = "Bearish"
-    else:
-        consensus = "Neutral"
-
-    st.markdown(
-        f"The War Room's combined view on {selected_ticker} is: **{consensus}** "
-        f"(underlying social sentiment detected as {sentiment_label})."
-    )
+if sentiment_score > 0.3:
+    consensus = "Bullish"
+elif sentiment_score < -0.3:
+    consensus = "Bearish"
 else:
-    st.info("Run the **Analyze** step above to get a sentiment reading and see a final consensus.")
+    consensus = "Neutral"
+
+st.markdown(
+    f"The War Room's combined view on **{selected_ticker}** is: **{consensus}** "
+    f"(underlying social sentiment detected as **{sentiment_label}**)."
+)
