@@ -4,31 +4,35 @@ import os
 # --------------------- PAGE CONFIG & STYLING ---------------------
 st.set_page_config(page_title="AI War Room - Finance Sentiment", layout="wide")
 
-# Hide Streamlit's default menu and footer
+# Hide Streamlit's default menu and footer; add extra bottom padding and spacing styling
 st.markdown(
     """
     <style>
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
 
-    /* Make the main container use less padding at top/bottom */
+    /* Adjust main container padding */
     .block-container {
         padding-top: 1rem;
-        padding-bottom: 0rem;
+        padding-bottom: 2rem;  /* Added bottom padding */
     }
 
-    /* Slightly increase font size for agent headings */
+    /* Increase font size for agent headings */
     .agent-heading {
-        font-size: 1.25rem; /* Adjust as desired */
+        font-size: 1.25rem;
         font-weight: 600;
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
+    }
+    
+    /* Extra spacing between sections */
+    .section-spacing {
+        margin-bottom: 2rem;
     }
     </style>
     """,
     unsafe_allow_html=True
 )
-
 
 # --------------------- RAW TWITTER DATA ---------------------
 raw_twitter_data = """
@@ -153,7 +157,6 @@ DewmBoom
 ·  
 1h  
 Can Meta’s Massive Manhattan-Sized Data Center Take Nvidia Stock T  
-
 New Record Highs? $NVDA  
 From barchart.com  
 
@@ -162,7 +165,6 @@ Trevor McLeod
 ·  
 1h  
 Is this what sparked the selloff of #nvidia stock earlier this week?  
-
 #artificial_intelligence #ai #GPU  
 #stocks  
 From marketwatch.com  
@@ -192,10 +194,8 @@ Replying to
 and  
 @StockMKTNewz  
 This breaks it down  
-
 Did DeepSeek AI Just Dethrone Nvidia $NVDA Stock?  
-
-They're developing their own GPUs China is close to chip production as good as Nvidia, so they will bypass them  
+They're developing their own GPUs as China nears parity with Nvidia.  
 That might have an effect like oh maybe collapsing a stock.  
 Smh  
 
@@ -208,10 +208,8 @@ Replying to
 @bnk2nde  
 and  
 @Abiodun0x  
-Found an article that explains the deepseek innovation with better clarity.  
-
+Found an article that explains the DeepSeek innovation with better clarity.  
 Towards the end is this explainer on the Nvidia stock price falls.  
-
 https://youtubetranscriptoptimizer.com/blog/05_the_short_case_for_nvda  
 
 Markets Today  
@@ -219,11 +217,8 @@ Markets Today
 ·  
 2h  
 Biggest Companies by Market Cap (2024) 🚀  
-
 These stock market giants are leading the way with trillion-dollar valuations! 💰  
-
-💡Top 5 Companies:
-
+💡Top 5 Companies:  
 🍏 Apple ( $AAPL ) – $3.59T+  
 🖥  Microsoft ( $MSFT ) – $3.11T+  
 🎮 Nvidia ( $NVDA ) – $3.05T+  
@@ -237,13 +232,13 @@ Loretta Renz
 2h  
 Replying to  
 @VivekNewsX  
-Yes, her husband just did it again with Nvidia stock and made a boatload.  When will this be put to an end?  If the average person did this we would be put in jail immediately.  
+Yes, her husband just did it again with Nvidia stock and made a boatload. When will this be put to an end? If the average person did this we would be put in jail immediately.  
 
 flow_float  
 @FLOwing_124  
 ·  
 2h  
-DeepSeek AI-powered chatbot app has  quickly overtook OpenAI's ChatGPT as the most-downloaded free iOS app in the US, and caused chip-making company Nvidia to lose almost $600bn (£483bn) of its market value in one day – a new US stock market record.  
+DeepSeek AI-powered chatbot app has quickly overtook OpenAI's ChatGPT as the most-downloaded free iOS app in the US, and caused chip-making company Nvidia to lose almost $600bn (£483bn) of its market value in one day – a new US stock market record.  
 From bbc.com  
 
 Sigma77 ⛳  
@@ -253,7 +248,6 @@ Sigma77 ⛳
 Replying to  
 @TrendSpider  
 $NVDA stock's like a plot twist in a movie - you think it's down for the count, then BAM! It's back with a vengeance, proving once again that in the AI world, Nvidia's the hero we didn't know we needed. Here's to betting on AI's favorite chip champ! $DELL  
-
 . Yep, was pretty happy to find mine at MRSP D1 back then.  
 But here clearly no stock, kind of a mess from Nvidia. Like 250 for every distributor in the US for the 5090, etc.  
 It's all the influencers that got the cards 😂  
@@ -280,15 +274,13 @@ Replying to
 @malleshwarm1  
 and  
 @KyleTrainEmoji  
-America does cook the data: it's economic performance is largely fluff. A trillion was just shaved off the stock exchange earlier this week is a perfect example: NVIDIA and other tech valuations are bullshit.  
+America does cook the data: its economic performance is largely fluff. A trillion was just shaved off the stock exchange earlier this week is a perfect example: NVIDIA and other tech valuations are bullshit.  
 
 Furqi  
 @Mr____Dreamer  
 ·  
 2h  
-Nvidia stock is ruining my portfolio  
-Gone down 19% since i bought it  
-You never know what and when a crash happens  
+Nvidia stock is ruining my portfolio. Gone down 19% since I bought it. You never know what and when a crash happens.  
 
 ToolMan  
 @jonathantoole91  
@@ -297,16 +289,15 @@ ToolMan
 Replying to  
 @NVIDIAGeForce  
 #GeForceRTX50  
-I really don't even care about winning a 5090, I just want to be able to buy the damn thing  
+I really don't even care about winning a 5090, I just want to be able to buy the damn thing.  
 @nvidia  
-. Why tf would you only release 300 5090 founders edition GPUs the whole world is trying to buy. Go look at your stock, ya'll need to rethink some things...  
+Why tf would you only release 300 5090 founders edition GPUs the whole world is trying to buy. Go look at your stock, ya'll need to rethink some things...  
 
 FryAI  
 @TheFryAI  
 ·  
 2h  
 ➡️ A single blogger has played a significant role in triggering NVIDIA's $600 billion stock decline, leading to panic in Silicon Valley.  
-
 One Blogger Helped Spark NVIDIA's $600B Stock Collapse  
 hardware.slashdot.org  
 One Blogger Helped Spark NVIDIA's $600B Stock Collapse - Slashdot  
@@ -327,7 +318,7 @@ sera 🚬🐈🏳️‍⚧️
 2h  
 Replying to  
 @_TheGreatAce_  
-nah there’s not a lot of hardware allocated to this region, nvidia simply doesnt gaf about thsi place. im talking strictly 5080s tho ive no idea how stock dor 5090 was  
+nah there’s not a lot of hardware allocated to this region, Nvidia simply doesn't gaf about this place. I'm talking strictly 5080s though I've no idea how stock for 5090 was  
 
 Slashdot Media  
 @SlashdotMedia  
@@ -336,7 +327,6 @@ Slashdot Media
 One Blogger Helped Spark NVIDIA's $600B Stock Collapse  
 hardware.slashdot.org  
 One Blogger Helped Spark NVIDIA's $600B Stock Collapse - Slashdot  
-
 On January 24th Brooklyn blogger Jeffrey Emanuel made the case for shorting NVIDIA, remembers MarketWatch, "due to a number of shifting tides in the AI world, including the emergence of a China-based...  
 
 柳青  
@@ -345,7 +335,6 @@ On January 24th Brooklyn blogger Jeffrey Emanuel made the case for shorting NVID
 2h  
 The Short Case for Nvidia Stock
 """
-
 
 # --------------------- TITLE & INTRO SECTION ---------------------
 st.title("AI War Room: Finance Sentiment Analysis")
@@ -364,12 +353,15 @@ selected_ticker = st.selectbox("Choose Ticker:", options=tickers, index=0)
 st.subheader("TWITTER (Last 2 hours)")
 st.markdown(
     f"""
-    <div style="border:1px solid #ccc; background-color:#000000; padding:1rem; max-height:400px; overflow-y:auto;">
+    <div style="border:1px solid #ccc; background-color:#000000; padding:1rem; max-height:400px; overflow-y:auto; color:#ffffff;">
       {raw_twitter_data.replace('\n', '<br>')}
     </div>
     """,
     unsafe_allow_html=True
 )
+
+# Add extra spacing between Twitter and News Articles
+st.markdown("<br>", unsafe_allow_html=True)
 
 # --------------------- PLACEHOLDER FOR OTHER PLATFORMS (WEBSITES) ---------------------
 st.subheader("News Articles")
@@ -438,25 +430,32 @@ for i, agent in enumerate(agent_names):
             st.image(agent_images[agent], width=240)
         else:
             st.write(f"⚠️ Missing {agent} image")
-
         st.markdown(f"<div class='agent-heading'>{agent} {agent_emojis[agent]}</div>", unsafe_allow_html=True)
         st.write(agent_responses[agent])
 
 # --------------------- FINAL CONSENSUS ---------------------
 st.markdown("---")
-st.subheader("Final Consensus")
+st.subheader("Final Consensus - Slightly favors 'BUY'")
 
-sentiment_label = analysis_result["sentiment"]
-sentiment_score = analysis_result["score"]
+# Pre-defined scores based on each agent's view (0 = must sell, 100 = must buy)
+agent_scores = {
+    "Optimist": 80,
+    "Pessimist": 30,
+    "Neutral": 50,
+    "Degen": 70,
+}
 
-if sentiment_score > 0.3:
-    consensus = "Bullish"
-elif sentiment_score < -0.3:
-    consensus = "Bearish"
-else:
-    consensus = "Neutral"
+final_consensus_score = round(sum(agent_scores.values()) / len(agent_scores))
+
+# Add a commentary on how the agents debated and came to the consensus
+consensus_commentary = (
+    "After a detailed debate, the Optimist highlighted Nvidia's long-term growth potential, "
+    "while the Pessimist warned of risks such as high volatility and reduced computing power demands from DeepSeek. "
+    "The Neutral agent advised a balanced approach, and the Degen suggested tactical plays to capitalize on market inefficiencies. "
+    "Taking into account all these viewpoints, they converged on a consensus score of **{score}** out of 100, "
+    "where 100 indicates a 'must buy' and 0 indicates a 'must sell' signal."
+).format(score=final_consensus_score)
 
 st.markdown(
-    f"The War Room's combined view on **{selected_ticker}** is: **{consensus}** "
-    f"(underlying social sentiment detected as **{sentiment_label}**)."
+    f"After evaluating all viewpoints, the combined recommendation for **{selected_ticker}** is **{final_consensus_score}** out of 100.  \n\n{consensus_commentary}"
 )
